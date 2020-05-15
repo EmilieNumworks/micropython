@@ -67,7 +67,7 @@ uintptr_t gc_helper_get_regs_and_sp(uintptr_t *regs);
 
 #endif // MICROPY_GCREGS_SETJMP
 
-MP_NOINLINE void gc_helper_collect_regs_and_stack(void) {
+void gc_helper_collect_regs_and_stack(void) {
     // get the registers and the sp
     gc_helper_regs_t regs;
     uintptr_t sp = gc_helper_get_regs_and_sp(regs);
