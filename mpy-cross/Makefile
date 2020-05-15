@@ -48,12 +48,22 @@ LDFLAGS = $(LDFLAGS_MOD) $(LDFLAGS_ARCH) -lm $(LDFLAGS_EXTRA)
 SRC_C = \
 	main.c \
 	gccollect.c \
-	lib/utils/gchelper_generic.c \
+	lib/utils/gchelper.c \
 
 # Add fmode when compiling with mingw gcc
 COMPILER_TARGET := $(shell $(CC) -dumpmachine)
 ifneq (,$(findstring mingw,$(COMPILER_TARGET)))
 	SRC_C += ports/windows/fmode.c
+endif
+
+ifneq (,$(findstring x86_64,$(COMPILER_TARGET)))
+OBJ += $(BUILD)/lib/utils/gchelper_x86_64.o
+else
+ifneq (,$(findstring i386,$(COMPILER_TARGET)))
+OBJ += $(BUILD)/lib/utils/gchelper_i386.o
+else
+# TODO: handle arm, thumb, thumb2 arch and dispatch gchelper_m0, gchelper_m3 to the right arch?
+endif
 endif
 
 OBJ = $(PY_CORE_O)

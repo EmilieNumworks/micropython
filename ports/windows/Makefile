@@ -28,7 +28,7 @@ endif
 
 # source files
 SRC_C = \
-	lib/utils/gchelper_generic.c \
+	lib/utils/gchelper.c \
 	lib/utils/printf.c \
 	ports/unix/main.c \
 	ports/unix/input.c \

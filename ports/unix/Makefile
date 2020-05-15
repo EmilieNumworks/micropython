@@ -205,13 +205,22 @@ SRC_C = \
 LIB_SRC_C += $(addprefix lib/,\
 	$(LIB_SRC_C_EXTRA) \
 	timeutils/timeutils.c \
-	utils/gchelper_generic.c \
+	utils/gchelper.c \
 	)
 
 OBJ = $(PY_O)
 OBJ += $(addprefix $(BUILD)/, $(SRC_C:.c=.o))
 OBJ += $(addprefix $(BUILD)/, $(LIB_SRC_C:.c=.o))
 OBJ += $(addprefix $(BUILD)/, $(EXTMOD_SRC_C:.c=.o))
+
+COMPILER_TARGET := $(shell $(CC) -dumpmachine)
+ifneq (,$(findstring x86_64,$(COMPILER_TARGET)))
+OBJ += $(BUILD)/lib/utils/gchelper_x86_64.o
+else
+ifneq (,$(findstring i386,$(COMPILER_TARGET)))
+OBJ += $(BUILD)/lib/utils/gchelper_i386.o
+endif
+endif
 
 # List of sources for qstr extraction
 SRC_QSTR += $(SRC_C) $(LIB_SRC_C) $(EXTMOD_SRC_C)
