@@ -65,7 +65,7 @@ SRC_QSTR += $(SRC_C)
 OBJ = $(PY_O) $(addprefix $(BUILD)/, $(SRC_C:.c=.o))
 
 CFLAGS = $(Z_CFLAGS) \
-	 -std=gnu99 -fomit-frame-pointer -DNDEBUG -DMICROPY_HEAP_SIZE=$(MICROPY_HEAP_SIZE) $(CFLAGS_MOD) $(CFLAGS_EXTRA) $(INC)
+	 -std=c99 -fomit-frame-pointer -DNDEBUG -DMICROPY_HEAP_SIZE=$(MICROPY_HEAP_SIZE) $(CFLAGS_MOD) $(CFLAGS_EXTRA) $(INC)
 
 include $(TOP)/py/mkrules.mk
 
